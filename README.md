@@ -1,2 +1,3 @@
 # example-java-http-client
-Java example of an HTTP client
+
+A basic example of making HTTP requests in Java, and serializing respones using Jackson.
