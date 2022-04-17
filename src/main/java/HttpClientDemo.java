@@ -69,7 +69,7 @@ public class HttpClientDemo {
         // email must be unique
         var user = new User(99, "Wilford Brimley", UUID.randomUUID() + "@brimley.org", "male", "active");
         var userJson = objectMapper.writeValueAsString(user);
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), userJson);
+        RequestBody body = RequestBody.create(userJson, MediaType.parse("application/json"));
 
         Request request = new Request.Builder()
                 .url(TEST_POST_URL)
