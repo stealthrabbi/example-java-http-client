@@ -13,5 +13,8 @@ public class Main {
         var demo = new HttpClientDemo("https", "gorest.co.in");
         demo.getUserList();
         demo.createUser();
+        demo.callGetWithQueryParameter();
+
+        System.out.println("goodbye");
     }
 }

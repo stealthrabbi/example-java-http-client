@@ -94,45 +94,26 @@ public class HttpClientDemo {
         System.out.println("Sending Post: " + request.toString());
 
         Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                System.out.println("got response: " + response.code());
-                System.out.println("Success?: " + response.isSuccessful());
-                if (response.isSuccessful()) {
-                    callGetWithQueryParameter(client);
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                System.err.println("exception posting data: " + e);
-            }
-        });
+        try {
+            var response = call.execute();
+            System.out.println("got response: " + response.code());
+            System.out.println("Success?: " + response.isSuccessful());
+        } catch (IOException e) {
+            System.err.println("exception posting data: " + e);
+        }
     }
 
-    public void callGetWithQueryParameter(OkHttpClient client) {
+    public void callGetWithQueryParameter() {
         HttpUrl httpurl = HttpUrl.parse(TEST_GET_URL.toString()).newBuilder()
                 .addQueryParameter("name", USER_NAME)
                 .build();
-
-
-//                .Builder()
-//                .scheme("https")
-//                .host(API_HOST)
-//                .addPathSegment("public")
-//                .addPathSegment("v2")
-//                .addPathSegment("users")
-//                .addQueryParameter("name", USER_NAME)
-//                .build();
-
 
         Request request = new Request.Builder()
                 .url(httpurl.url())
                 .header("Authorization", "Bearer " + API_TOKEN)
                 .build();
 
-        Call call = client.newCall(request);
+        Call call = this.getClient().newCall(request);
         try {
             var response = call.execute();
             System.out.println("got get-with-query response: " + response.code());
