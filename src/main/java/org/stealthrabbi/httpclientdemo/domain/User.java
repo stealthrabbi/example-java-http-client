@@ -1,4 +1,4 @@
-package domain;
+package org.stealthrabbi.httpclientdemo.domain;
 
 public class User {
     protected int id;
